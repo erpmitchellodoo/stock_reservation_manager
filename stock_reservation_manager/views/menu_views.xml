@@ -1,0 +1,11 @@
+<odoo>
+    <menuitem id="menu_reservation_manager" name="Reservation Manager" parent="stock.menu_stock_root"
+              sequence="35"
+              groups="stock.group_stock_user"/>
+    <menuitem id="menu_reservation_manager_action" name="Reservation" parent="stock_reservation_manager.menu_reservation_manager"
+              action="action_reservation_manager" sequence="35"
+              groups="stock.group_stock_user"/>
+    <menuitem id="menu_reservation_audit" name="Reservation Audit History" parent="menu_reservation_manager"
+              action="action_stock_reservation_audit" sequence="90"
+              groups="stock.group_stock_manager"/>
+</odoo>

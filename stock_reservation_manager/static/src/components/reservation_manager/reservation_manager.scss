@@ -1,0 +1,154 @@
+.o_reservation_manager {
+    --o-rm-surface: color-mix(in srgb, var(--bs-body-bg, #fff) 90%, transparent);
+    --o-rm-kpi-bg: #4a074b;
+    --o-rm-background-overlay: color-mix(in srgb, var(--bs-body-bg, #fff) 88%, transparent);
+    color: var(--bs-body-color, #212529);
+    font-size: 0.875rem;
+    background-color: var(--bs-body-bg, #fff);
+    background-image:
+        linear-gradient(var(--o-rm-background-overlay), var(--o-rm-background-overlay)),
+        url("/stock_reservation_manager/static/img/background-lights.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.o_rm_header {
+    color: var(--bs-body-color, #212529);
+    background-color: var(--o-rm-surface);
+    border-color: var(--bs-border-color) !important;
+    backdrop-filter: blur(8px);
+
+    h2 {
+        color: inherit;
+        font-size: 1.35rem;
+        font-weight: 600;
+    }
+}
+
+.o_rm_kpis {
+    grid-template-columns: repeat(8, minmax(130px, 1fr));
+    overflow-x: auto;
+}
+
+.o_rm_kpis .card {
+    min-width: 130px;
+    color: #fff;
+    background-color: var(--o-rm-kpi-bg);
+    border: 1px solid color-mix(in srgb, #fff 18%, transparent);
+    border-left: 3px solid var(--o-brand-primary, #714b67);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.14);
+
+    small {
+        color: rgba(255, 255, 255, 0.82);
+        font-weight: 500;
+    }
+
+    strong {
+        color: #fff;
+        font-weight: 700;
+    }
+}
+
+.o_reservation_manager > .nav-tabs {
+    background-color: var(--o-rm-surface);
+    border-color: var(--bs-border-color);
+
+    .nav-link {
+        color: var(--bs-secondary-color, #6c757d);
+        font-weight: 500;
+
+        &:hover {
+            color: var(--bs-body-color, #212529);
+            border-color: var(--bs-border-color);
+        }
+
+        &.active {
+            color: var(--bs-body-color, #212529);
+            background-color: var(--bs-body-bg, #fff);
+            border-color: var(--bs-border-color) var(--bs-border-color) var(--bs-body-bg, #fff);
+            font-weight: 600;
+        }
+    }
+}
+
+.o_rm_view_help {
+    color: var(--bs-secondary-color, #6c757d);
+    background-color: color-mix(in srgb, var(--o-brand-primary, #714b67) 7%, var(--bs-body-bg, #fff));
+    border-bottom: 1px solid var(--bs-border-color);
+
+    i,
+    strong {
+        color: var(--o-brand-primary, #714b67);
+    }
+}
+
+.o_reservation_manager .table {
+    --bs-table-bg: #{$o-view-background-color};
+    --bs-table-color: #{$o-main-text-color};
+    --bs-table-border-color: #{$o-gray-300};
+    margin-bottom: 0;
+
+    th,
+    td,
+    strong {
+        color: $o-main-text-color;
+    }
+
+    thead th {
+        font-weight: 600;
+    }
+
+    tbody td {
+        font-size: 0.9rem;
+        font-weight: 450;
+    }
+
+    tbody tr:hover > * {
+        color: $o-main-text-color;
+    }
+
+    .text-muted {
+        color: $o-gray-700 !important;
+    }
+}
+
+.o_rm_detail {
+    width: 42vw;
+    max-width: 440px;
+    flex: 0 0 auto;
+    color: var(--bs-body-color, #212529);
+    background: var(--bs-body-bg, #fff);
+    border-color: var(--bs-border-color) !important;
+}
+
+.o_rm_selection_toolbar {
+    color: $o-main-text-color;
+    background-color: $o-view-background-color;
+    border-color: $o-gray-300 !important;
+}
+
+[data-bs-theme="dark"] .o_reservation_manager {
+    --o-rm-surface: rgba(38, 42, 54, 0.94);
+    --o-rm-kpi-bg: #4a174b;
+
+    .form-control {
+        color: var(--bs-body-color);
+        background-color: var(--bs-body-bg);
+        border-color: var(--bs-border-color);
+    }
+}
+
+.o_reservation_manager tbody tr { cursor: pointer; }
+
+@media (max-width: 900px) {
+    .o_rm_header {
+        align-items: stretch !important;
+        flex-wrap: wrap;
+
+        h2 { width: 100%; }
+        .form-control { flex: 1 1 220px; width: auto !important; }
+    }
+
+    .o_rm_detail { width: 100%; position: absolute; inset: 0; z-index: 5; }
+}

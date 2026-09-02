@@ -1,0 +1,117 @@
+<templates xml:space="preserve">
+    <t t-name="stock_reservation_manager.ReservationManager">
+        <div class="o_reservation_manager h-100 d-flex flex-column">
+            <div class="o_rm_header p-3 border-bottom d-flex align-items-center gap-3">
+                <h2 class="m-0">Stock Reservation Control Center</h2>
+                <input class="form-control ms-auto w-auto" placeholder="Product, reference, transfer, source…"
+                       t-model="state.search" t-on-keydown="search"/>
+                <button class="btn btn-primary" t-on-click="load">Refresh</button>
+            </div>
+            <div class="o_rm_kpis p-3 d-grid gap-2">
+                <t t-foreach="[['products','Products With Reservations'],['reserved','Total Reserved Quantity'],['fully_reserved','Fully Reserved'],['partial','Partial Demand'],['unreserved','Unreserved Demand'],['old','Old Reservations'],['conflicts','Conflicts'],['due_soon','Due Soon']]"
+                   t-as="kpi" t-key="kpi[0]">
+                    <div class="card p-3">
+                        <small t-esc="kpi[1]"/>
+                        <strong class="fs-4" t-esc="state.data.kpis[kpi[0]] || 0"/>
+                    </div>
+                </t>
+            </div>
+            <div class="nav nav-tabs px-3">
+                <t t-foreach="tabs" t-as="tab" t-key="tab[0]">
+                    <button class="nav-link" t-att-class="{'active': state.tab === tab[0]}"
+                            t-on-click="() => this.selectTab(tab[0])" t-esc="tab[1]"/>
+                </t>
+            </div>
+            <div class="o_rm_view_help d-flex align-items-start gap-2 px-3 py-2" role="note">
+                <i class="fa fa-info-circle mt-1" aria-hidden="true"/>
+                <div>
+                    <strong class="me-1" t-esc="activeTabHelp.title"/>
+                    <span t-esc="activeTabHelp.description"/>
+                </div>
+            </div>
+            <div class="d-flex flex-grow-1 overflow-hidden">
+                <div class="flex-grow-1 overflow-auto p-3">
+                    <div t-if="state.loading" class="text-center p-5">
+                        <i class="fa fa-spinner fa-spin"/> Loading reservations…
+                    </div>
+                    <table t-else="" class="table table-hover align-middle">
+                        <thead>
+                            <tr><th>Record</th><th>On Hand / Demand</th><th>Reserved</th><th>Free / Missing</th><th>Status / Date</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.data.rows" t-as="row" t-key="row.id || row.label || row.product_id"
+                                t-on-click="() => this.openDetail(row)">
+                                <td>
+                                    <strong t-esc="row.product || row.customer || row.warehouse || row.label || row.reference"/>
+                                    <div class="text-muted" t-esc="row.reference || row.default_code || ''"/>
+                                </td>
+                                <td t-esc="(row.on_hand ?? row.demand ?? row.count) || 0"/>
+                                <td t-esc="row.reserved ?? row.quantity ?? ''"/>
+                                <td t-esc="row.free ?? row.missing ?? ''"/>
+                                <td>
+                                    <span t-esc="row.status || row.state || row.date || row.conflict || ''"/>
+                                    <button t-if="row.source &amp;&amp; state.data.manager" class="btn btn-sm btn-outline-primary ms-2"
+                                            t-on-click.stop="() => this.checkAvailability(row.id)">
+                                        Check Availability
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <aside t-if="state.detail" class="o_rm_detail border-start p-3 overflow-auto">
+                    <div class="d-flex align-items-start gap-2">
+                        <h4 class="mb-0" t-esc="state.detail.product"/>
+                        <button class="btn-close ms-auto" t-on-click="() => state.detail = null"/>
+                    </div>
+                    <div class="alert alert-info py-2 mt-3">
+                        Reservation age is estimated from the operational move-line date; Odoo does not store an exact reservation-created timestamp.
+                    </div>
+                    <div t-if="state.data.manager &amp;&amp; state.detail.lines.length" class="o_rm_selection_toolbar mb-3 p-2 border rounded">
+                        <div class="form-check mb-2">
+                            <input id="o_rm_select_all" class="form-check-input" type="checkbox"
+                                   t-att-checked="state.selectedLineIds.length === state.detail.lines.length"
+                                   t-on-change="toggleAllLines"/>
+                            <label class="form-check-label" for="o_rm_select_all">
+                                Select all (<t t-esc="state.selectedLineIds.length"/> selected)
+                            </label>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-sm btn-danger" t-att-disabled="!state.selectedLineIds.length"
+                                    t-on-click="openUnreserve">
+                                <t t-if="state.selectedLineIds.length > 1">Bulk Unreserve</t>
+                                <t t-else="">Unreserve</t>
+                            </button>
+                            <button class="btn btn-sm btn-primary" t-att-disabled="state.selectedLineIds.length !== 1"
+                                    t-on-click="openReallocation">Reallocate</button>
+                        </div>
+                    </div>
+                    <div t-if="!state.detail.lines.length" class="alert alert-secondary">
+                        No active reservation lines. Use Check Availability from the transaction, partial, or unreserved view.
+                    </div>
+                    <div t-foreach="state.detail.lines" t-as="line" t-key="line.id" class="card mb-2 p-2">
+                        <div class="d-flex gap-2">
+                            <input t-if="state.data.manager" class="form-check-input flex-shrink-0" type="checkbox"
+                                   t-att-checked="this.isLineSelected(line.id)"
+                                   t-on-change="() => this.toggleLine(line.id)"/>
+                            <div class="d-flex flex-column flex-grow-1">
+                                <strong t-esc="line.picking || line.source.reference"/>
+                                <span t-esc="line.source.label"/>
+                                <span>Reserved: <t t-esc="line.reserved"/></span>
+                                <span><t t-esc="line.source_location"/> → <t t-esc="line.destination_location"/></span>
+                                <span>Lot/Serial: <t t-esc="line.lot || '-'"/></span>
+                                <small>Estimated age: <t t-esc="line.age_days"/> day(s)</small>
+                                <div class="mt-2">
+                                    <button t-if="line.picking_id" class="btn btn-sm btn-secondary me-1"
+                                            t-on-click.stop="() => this.openRecord('stock.picking', line.picking_id)">Open Transfer</button>
+                                    <button class="btn btn-sm btn-outline-primary"
+                                            t-on-click.stop="() => this.openRecord(line.source.model, line.source.id)">Open Source</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </t>
+</templates>
