@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_reservation" model="ir.ui.view">
+        <field name="name">res.config.settings.form.reservation.control</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='stock']" position="inside">
+                <block title="Reservation Control Settings" name="reservation_control_settings">
+                    <setting id="reservation_analysis_settings"
+                             string="Reservation Analysis"
+                             help="Configure reservation aging, conflict detection, and critical stock thresholds."
+                             company_dependent="1">
+                        <field name="reservation_aging_enabled"/>
+                        <div class="content-group" invisible="not reservation_aging_enabled">
+                            <div class="row mt16">
+                                <label for="reservation_old_days" class="col-lg-4 o_light_label"/>
+                                <field name="reservation_old_days" class="oe_inline"/>
+                            </div>
+                            <div class="row mt8">
+                                <label for="reservation_aging_buckets" class="col-lg-4 o_light_label"/>
+                                <field name="reservation_aging_buckets" placeholder="1,3,7,15,30"/>
+                            </div>
+                        </div>
+                        <div class="content-group mt16">
+                            <div class="row mt8">
+                                <field name="reservation_conflict_enabled" class="col flex-grow-0"/>
+                                <label for="reservation_conflict_enabled" class="col ps-0 o_light_label"/>
+                            </div>
+                            <div class="row mt8">
+                                <label for="reservation_critical_percent" class="col-lg-4 o_light_label"/>
+                                <field name="reservation_critical_percent" class="oe_inline"/>
+                                <span class="ms-1">%</span>
+                            </div>
+                        </div>
+                    </setting>
+
+                    <setting id="reservation_manual_control_settings"
+                             string="Manual Controls"
+                             help="Control whether Inventory Administrators may release or reallocate native reservations."
+                             company_dependent="1">
+                        <field name="reservation_unreserve_enabled"/>
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <field name="reservation_require_unreserve_reason" class="col flex-grow-0"/>
+                                <label for="reservation_require_unreserve_reason" class="col ps-0 o_light_label"/>
+                            </div>
+                            <div class="row mt8">
+                                <field name="reservation_reallocation_enabled" class="col flex-grow-0"/>
+                                <label for="reservation_reallocation_enabled" class="col ps-0 o_light_label"/>
+                            </div>
+                            <div class="row mt8" invisible="not reservation_reallocation_enabled">
+                                <field name="reservation_require_reallocation_reason" class="col flex-grow-0"/>
+                                <label for="reservation_require_reallocation_reason" class="col ps-0 o_light_label"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,25 @@
+<odoo>
+    <record id="view_reservation_unreserve_wizard_form" model="ir.ui.view">
+        <field name="name">reservation.unreserve.wizard.form</field>
+        <field name="model">stock.reservation.unreserve.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Release Reservation">
+                <group>
+                    <field name="move_line_ids" widget="many2many_tags" readonly="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="reason_required" invisible="1"/>
+                    <field name="current_quantity" readonly="1"/>
+                    <field name="quantity_to_release" placeholder="Leave zero to release all selected"/>
+                    <field name="reason" required="reason_required"/>
+                    <field name="notes"/>
+                    <field name="snapshot" invisible="1"/>
+                </group>
+                <div class="alert alert-warning" role="alert">The reservation is re-read before release. Picked, done, cancelled, or changed reservations are rejected.</div>
+                <footer>
+                    <button name="action_confirm" type="object" string="Release Reservation" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
