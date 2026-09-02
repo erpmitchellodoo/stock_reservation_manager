@@ -1,0 +1,36 @@
+{
+    "name": "Stock Reservation Manager & Control Center",
+    "summary": "Centralized visibility and safe control of native stock reservations",
+    "version": "17.0.1.2.0",
+    "category": "Inventory/Inventory",
+    'author': 'Mitchel Admin',
+    'maintainer': 'Mitchel Admin',
+    'support': 'erpmitchellodoo@gmail.com',
+    "license": "LGPL-3",
+    "images": [
+        "static/description/banner.png",
+        "static/description/dashboard.png",
+        "static/description/reservation_details.png",
+        "static/description/settings.png",
+    ],
+    "depends": ["stock", "sale_stock", "mrp", "repair", "product_expiry"],
+    "data": [
+        "security/reservation_security.xml",
+        "security/ir.model.access.csv",
+        "views/reservation_audit_views.xml",
+        "views/res_config_settings_views.xml",
+        "wizard/reservation_unreserve_wizard_views.xml",
+        "wizard/reservation_reallocation_wizard_views.xml",
+        "views/reservation_client_action.xml",
+        "views/menu_views.xml",
+    ],
+    "assets": {
+        "web.assets_backend": [
+            "stock_reservation_manager/static/src/components/reservation_manager/reservation_manager.js",
+            "stock_reservation_manager/static/src/components/reservation_manager/reservation_manager.xml",
+            "stock_reservation_manager/static/src/components/reservation_manager/reservation_manager.scss",
+        ],
+    },
+    "application": True,
+    "installable": True,
+}

@@ -1,0 +1,8 @@
+<odoo>
+    <record id="audit_company_rule" model="ir.rule">
+        <field name="name">Reservation audit company isolation</field>
+        <field name="model_id" ref="model_stock_reservation_audit"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[Command.set([ref('stock.group_stock_manager')])]"/>
+    </record>
+</odoo>
