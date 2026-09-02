@@ -16,11 +16,14 @@
         .srm-card p, .srm-card li { color:#6b626a; font-size:15px; line-height:1.65; }
         .srm-card p:last-child, .srm-card ul:last-child { margin-bottom:0; }
         .srm-card code, .srm-callout code { padding:2px 5px; border-radius:4px; background:#f5f1f4; color:#714b67; font-family:SFMono-Regular,Consolas,'Liberation Mono',monospace; font-size:90%; }
-        .srm-number { display:inline-block; width:42px; height:42px; margin-bottom:12px; border-radius:50%; background:#714b67; color:#fff; font-size:17px; font-weight:700; line-height:42px; text-align:center; }
         .srm-shot { display:block; width:100%; border:1px solid #dedbe2; border-radius:12px; box-shadow:0 10px 30px rgba(30,24,32,.12); }
         .srm-callout { padding:22px 26px; border:1px solid #eadfe7; border-left:5px solid #714b67; border-radius:10px; background:#f7f3f6; color:#554c54; font-size:15px; line-height:1.65; }
         .srm-callout p { margin:0 0 8px; }
         .srm-check { margin-right:7px; color:#138f91; font-weight:700; }
+        .srm-support { padding:34px 28px; border:1px solid #dedbe2; border-radius:16px; background:#fff; color:#111; text-align:center; box-shadow:0 10px 28px rgba(70,48,65,.12); }
+        .srm-support h2 { margin:0 0 10px; color:#111; font-size:29px; font-weight:700; }
+        .srm-support p { max-width:720px; margin:0 auto 20px; color:#222; font-size:16px; line-height:1.65; }
+        .srm-support a { display:inline-block; padding:11px 22px; border:1px solid #222; border-radius:8px; background:#fff; color:#111; font-size:16px; font-weight:700; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.1); }
         @media (max-width:768px) { .srm-title { font-size:30px; } .srm-hero { padding:34px 18px; } .srm-heading { font-size:27px; } .srm-section { padding-top:36px; } .srm-section .col-md-4, .srm-section .col-md-6 { width:100%; } }
     </style>
 
@@ -69,14 +72,14 @@
     <section class="srm-section">
         <h2 class="srm-heading">Every analysis view explained</h2>
         <div class="row g-4">
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">1</span><h4>By Product</h4><p>The default landing view. Shows on-hand, reserved, free quantity, reservation count, utilization ratio, and critical/available status for each product.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">2</span><h4>By Transaction</h4><p>Lists active stock demand with reference, origin, requested quantity, reserved quantity, missing quantity, date, priority, state, and resolved source document.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">3</span><h4>By Customer</h4><p>Groups active reservations by customer and summarizes reserved quantity, distinct products, and affected transfers.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">4</span><h4>By Warehouse</h4><p>Compares warehouse on-hand, reserved, free stock, and reservation utilization ratio.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">5</span><h4>Aging</h4><p>Groups reservations into configurable age ranges such as 1, 3, 7, 15, and 30 days. Reservation age is clearly identified as an operational estimate.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">6</span><h4>Partial Reservations</h4><p>Isolates partially available moves so planners can see exactly how much is still missing.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">7</span><h4>Unreserved Demand</h4><p>Surfaces active moves with zero reserved quantity for availability review and follow-up.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">8</span><h4>Conflicts</h4><p>Highlights products where multiple active demands compete for insufficient available stock.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>By Product</h4><p>The default landing view. Shows on-hand, reserved, free quantity, reservation count, utilization ratio, and critical/available status for each product.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>By Transaction</h4><p>Lists active stock demand with reference, origin, requested quantity, reserved quantity, missing quantity, date, priority, state, and resolved source document.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>By Customer</h4><p>Groups active reservations by customer and summarizes reserved quantity, distinct products, and affected transfers.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>By Warehouse</h4><p>Compares warehouse on-hand, reserved, free stock, and reservation utilization ratio.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Aging</h4><p>Groups reservations into configurable age ranges such as 1, 3, 7, 15, and 30 days. Reservation age is clearly identified as an operational estimate.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Partial Reservations</h4><p>Isolates partially available moves so planners can see exactly how much is still missing.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Unreserved Demand</h4><p>Surfaces active moves with zero reserved quantity for availability review and follow-up.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Conflicts</h4><p>Highlights products where multiple active demands compete for insufficient available stock.</p></div></div>
         </div>
     </section>
 
@@ -115,10 +118,10 @@
         <h2 class="srm-heading">From detection to action in four steps</h2>
         <p class="srm-lead">Inventory Managers can now complete the reservation-control workflow directly from the dashboard. Every confirmed action creates an immutable, company-isolated audit entry.</p>
         <div class="row">
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">1</span><h4>Check Availability</h4><p>Open By Transaction, Partial Reservations, or Unreserved Demand and click <strong>Check Availability</strong>. Odoo runs its native assignment logic for that stock move and records the quantity before and after.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">2</span><h4>Select reservation lines</h4><p>Open a product and select one or more active reservation lines from the detail panel. Use Select All when the same product has several reservations.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">3</span><h4>Unreserve or reallocate</h4><p>Release one line, bulk-release several lines, or select exactly one line for reallocation. Reallocation filters targets to active moves for the same product and company and requires a preview before confirmation.</p></div></div>
-            <div class="col-md-6"><div class="srm-card"><span class="srm-number">4</span><h4>Review Audit History</h4><p>Filter the immutable history by action, user, product, transfer, or date. Review the source document, target move, quantities, reason, notes, and actual result.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Check Availability</h4><p>Open By Transaction, Partial Reservations, or Unreserved Demand and click <strong>Check Availability</strong>. Odoo runs its native assignment logic for that stock move and records the quantity before and after.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Select reservation lines</h4><p>Open a product and select one or more active reservation lines from the detail panel. Use Select All when the same product has several reservations.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Unreserve or reallocate</h4><p>Release one line, bulk-release several lines, or select exactly one line for reallocation. Reallocation filters targets to active moves for the same product and company and requires a preview before confirmation.</p></div></div>
+            <div class="col-md-6"><div class="srm-card"><h4>Review Audit History</h4><p>Filter the immutable history by action, user, product, transfer, or date. Review the source document, target move, quantities, reason, notes, and actual result.</p></div></div>
         </div>
         <div class="srm-callout mt-4"><strong>Role-aware controls:</strong> action buttons and Reservation Audit History are available only to Inventory Managers. Inventory users retain read-only dashboard access.</div>
     </section>
@@ -138,10 +141,18 @@
     <section class="srm-section pb-5">
         <h2 class="srm-heading">Installation</h2>
         <div class="row g-4">
-            <div class="col-md-4"><div class="srm-card text-center"><span class="srm-number">1</span><h4>Add the module</h4><p>Place <code>stock_reservation_manager</code> in an Odoo addons path.</p></div></div>
-            <div class="col-md-4"><div class="srm-card text-center"><span class="srm-number">2</span><h4>Update Apps</h4><p>Refresh the Apps list and install Stock Reservation Manager &amp; Control Center.</p></div></div>
-            <div class="col-md-4"><div class="srm-card text-center"><span class="srm-number">3</span><h4>Open Inventory</h4><p>Navigate to Inventory &rarr; Reservation Manager and configure controls under Inventory Settings.</p></div></div>
+            <div class="col-md-4"><div class="srm-card text-center"><h4>Add the module</h4><p>Place <code>stock_reservation_manager</code> in an Odoo addons path.</p></div></div>
+            <div class="col-md-4"><div class="srm-card text-center"><h4>Update Apps</h4><p>Refresh the Apps list and install Stock Reservation Manager &amp; Control Center.</p></div></div>
+            <div class="col-md-4"><div class="srm-card text-center"><h4>Open Inventory</h4><p>Navigate to Inventory &rarr; Reservation Manager and configure controls under Inventory Settings.</p></div></div>
         </div>
         <p class="srm-lead mt-5 mb-0"><strong>Dependencies:</strong> Inventory, Sales Inventory, Manufacturing, Repairs, and Product Expiration Dates.</p>
+    </section>
+
+    <section class="srm-section">
+        <div class="srm-support">
+            <h2>Need Help?</h2>
+            <p>For installation assistance, configuration questions, or technical support, contact our support team.</p>
+            <a href="mailto:erpmitchellodoo@gmail.com">erpmitchellodoo@gmail.com</a>
+        </div>
     </section>
 </div>
